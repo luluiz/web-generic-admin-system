@@ -1,7 +1,7 @@
 import { MediaMatcher } from '@angular/cdk/layout';
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { Subscription } from 'rxjs';
 import { AuthenticationService } from "../../authentication/authentication.service";
