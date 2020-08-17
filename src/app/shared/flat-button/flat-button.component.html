@@ -1,0 +1,7 @@
+<button mat-flat-button
+    [color]="color" 
+    [ngStyle]="getStyle()" 
+    (click)="onClick($event)"
+    [disabled]="disabled">
+    <mat-icon *ngIf="icon" style="font-size: 22px">{{icon}}</mat-icon> {{text}}</button>
+    

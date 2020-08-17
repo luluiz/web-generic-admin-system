@@ -1,0 +1,83 @@
+<div *ngIf="mostrarAlertaPagamento" class="payment-status-box status-pending-payment">
+    ATENÇÃO: A sua assinatura está prestes a vencer. Acesse o <a [routerLink]="['/pagamentos/cobrancas']" class="underline">Painel de cobranças</a> e pague sua assinatura.
+</div>
+<div class="main-container" dir="ltr" [ngClass]="{'minisidebar': false, 'green': true, 'dark': false }">
+    <mat-toolbar color="primary" class="topbar telative">
+        <div class="navbar-header">
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <a class="navbar-brand" href="/">
+                    <img src="assets/images/hubbi2.PNG" alt="homepage" class="dark-logo">
+                    <img src="assets/images/hubbi2.PNG" style="height: 52px;" alt="homepage" class="light-logo">
+                </a>
+            </div>
+        </div>
+
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed" *ngIf="usuario_autorizado">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <app-header></app-header>
+        <button mat-icon-button class="ml-xs overflow-visible" (click)="end.toggle()">
+            <mat-icon>settings</mat-icon>
+        </button>
+
+        <button mat-icon-button class="m-r-5" (click)="logout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-sidenav-container [style.marginTop.px]="mobileQuery.matches ? 0 : 0" [ngClass]="{'minisidebar': minisidebar}">
+        <mat-sidenav #snav id="snav" class="pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches && usuario_autorizado"
+            [disableClose]="mobileQuery.matches" (open)="usuario_autorizado ? sidebarOpened = true : null" (close)="sidebarOpened" [perfectScrollbar]="config">
+            <app-sidebar class="app-sidebar" (response)="responseSidebar($event)"></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav #end position="end" class="chat-panel" mode="over" opened="false">
+            <div class="scroll" [formGroup]="form">
+                <mat-nav-list>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Configurações</h3>
+                    <mat-list-item class="config">
+                        <a (click)="perfilUsuario()" style="width: 100%" color="primary">
+                            <mat-icon>account_circle</mat-icon>
+                            <span fxFlex>Perfil: Usuário</span>
+                        </a>
+                    </mat-list-item>
+                    <mat-list-item class="config" *ngIf="usuario_logado?.is_oficina && usuario_logado?.nivel == 'O_ADMIN'">
+                        <a (click)="perfilOficina()" style="width: 100%" color="primary">
+                            <mat-icon>apartment</mat-icon>
+                            <span fxFlex>Perfil: Oficina</span>
+                        </a>
+                    </mat-list-item>
+                    <mat-list-item class="config" *ngIf="usuario_logado?.is_fornecedor && usuario_logado?.nivel == 'F_ADMIN'">
+                        <a (click)="perfilFornecedor()" style="width: 100%" color="primary">
+                            <mat-icon>apartment</mat-icon>
+                            <span fxFlex>Perfil: Fornecedor</span>
+                        </a>
+                    </mat-list-item>
+                    <mat-list-item class="config" *ngIf="usuario_logado?.is_oficina && usuario_logado?.nivel == 'O_ADMIN'">
+                        <a (click)="pagamentos()" style="width: 100%" color="primary">
+                            <mat-icon>attach_money</mat-icon>
+                            <span fxFlex>Cobranças</span>
+                        </a>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Tema</h3>
+                    <mat-list-item>
+                        <mat-slide-toggle formControlName="menu_reduzido">Menu Reduzido</mat-slide-toggle>
+                    </mat-list-item>
+                    <mat-list-item>
+                        <mat-slide-toggle formControlName="tema_escuro">Tema Escuro</mat-slide-toggle>
+                    </mat-list-item>
+                </mat-nav-list>
+
+                <!-- <pre>{{usuario_logado | json }}</pre> -->
+            </div>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="page-wrapper">
+            <div class="page-content">
+                <router-outlet>
+                    <app-spinner></app-spinner>
+                </router-outlet>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

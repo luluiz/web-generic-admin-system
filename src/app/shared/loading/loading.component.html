@@ -1,0 +1,8 @@
+<h4 *ngIf="loading && determinate && progress" class="progress">{{progress}}%</h4>
+<div class="loading-shade" *ngIf="loading">
+    <mat-spinner 
+        *ngIf="loading" 
+        color="primary" 
+        [value]="progress ? progress : null" 
+        [mode]="progress ? 'determinate' : 'indeterminate'"></mat-spinner>
+</div>

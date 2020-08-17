@@ -1,0 +1,23 @@
+{
+    "editor.tabSize": 4,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0,
+    "editor.fontSize": 13,
+    "[typescript]": {
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        }
+    },
+    // "terminal.integrated.shell.windows": "C:\\WINDOWS\\System32\\cmd.exe",
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "git.autofetch": true,
+    "html.format.wrapLineLength": 200,
+    "editor.detectIndentation": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "git.confirmSync": false,
+    "files.exclude": {
+        "**/node_modules/**": true
+    },
+    "editor.wordWrap": "on"
+}

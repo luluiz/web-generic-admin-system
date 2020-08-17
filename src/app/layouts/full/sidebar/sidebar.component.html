@@ -1,0 +1,74 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<div class="user-profile">
+    <div class="profile-text" style="padding-top: 0px; font-size: 14px">
+        <a class="profile-item" *ngIf="_usuario.is_fornecedor || _usuario.is_oficina">
+            <mat-icon class="icon-item">apartment</mat-icon><span fxFlex>{{_empresa?.nome_fantasia}}</span>
+        </a>
+        <a class="profile-item">
+            <mat-icon class="icon-item">account_circle</mat-icon><span fxFlex>&nbsp;{{_usuario?.nome}}</span>
+        </a>
+        <a class="profile-item">
+            <mat-icon class="icon-item">email</mat-icon><span fxFlex>{{_usuario?.email}}</span>
+        </a>
+    </div>
+    <!-- <pre>{{_usuario | json }}</pre> -->
+    <!-- <pre>{{_empresa | json }}</pre> -->
+</div>
+
+<mat-nav-list appAccordion>
+    <mat-list-item appAccordionLink *ngFor="let item of menu; let i = index;" routerLinkActive="selected" group="{{item.state}}">
+        <a class="" appAccordionToggle (click)="irPara(item.acao, item.state)" *ngIf="item.type === 'link'">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+        </a>
+
+        <a class="" appAccordionToggle href="{{item.state}}" *ngIf="item.type === 'extLink'">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.name }}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+        </a>
+        <a class="" appAccordionToggle href="{{item.state}}" target="_blank" *ngIf="item.type === 'extTabLink'">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.name}}</span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+        </a>
+
+        <a class="item" appAccordionToggle href="javascript:;" *ngIf="item.type === 'sub'">
+            <mat-icon>{{ item.icon }}</mat-icon>
+            <span>{{ item.name }} </span>
+            <span fxFlex></span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+            <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+        </a>
+        <mat-nav-list class="sub-item" *ngIf="item.type === 'sub'">
+            <mat-list-item *ngFor="let childitem of item.children; let j = index;" routerLinkActive="selectedsubitem">
+                <!--  [routerLink]="['/', item.state, childitem.state ]" -->
+                <a *ngIf="childitem.type === 'link'" class="relative subitem" outerLinkActive="selectedsubitem"
+                    (click)="itemSelect[i]=j ; irPara(item.acao, item.state, childitem.state)">{{ childitem.name}}</a>
+            </mat-list-item>
+            <mat-list-item *ngFor="let childitem of item.children; let j = index">
+                <a class="" href="javascript: void(0);" *ngIf="childitem.type === 'subchild'" (click)="itemSelect[i]=j" [ngClass]="j==itemSelect[i]? 'selected' : ''">
+                    <span>{{ childitem.name }}</span>
+                    <span fxFlex></span>
+                    <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
+                </a>
+                <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'">
+                    <mat-list-item *ngFor="let child of childitem.subchildren" routerLinkActive="selected">
+                        <a [routerLink]="['/', item.state, childitem.state, child.state ]" routerLinkActive="selected">{{child.name}}</a>
+                    </mat-list-item>
+                </mat-nav-list>
+            </mat-list-item>
+
+        </mat-nav-list>
+
+        <div class="saperator text-muted" *ngIf="item.type === 'saperator'">
+            <span>{{ item.name }}</span>
+        </div>
+    </mat-list-item>
+</mat-nav-list>

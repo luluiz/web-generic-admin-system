@@ -1,0 +1,27 @@
+<app-loading [loading]="carregando"></app-loading>
+<div class="login-register" style="background: #15723b;">
+    <div class="login-register-box">
+        <mat-card>
+            <mat-card-content>
+                <form [formGroup]="form">
+                    <div class="text-center">
+                        <img alt="homepage" src="assets/images/hubbi.PNG" [routerLink]="['/auth/login']" style="width: 200px; cursor: pointer;">
+                        <h4 class="m-b-0">Recuperar Senha</h4>
+                    </div>
+                    <p class="text-center font-14">Digite seu e-mail que enviaremos um link para criar uma nova senha.</p>
+
+                    <div fxLayout="column" fxLayoutAlign="space-around">
+                        <div class="pb-1">
+                            <mat-form-field style="width: 100%">
+                                <input matInput placeholder="E-mail" type="email" [formControl]="form.controls['email']">
+                            </mat-form-field>
+                            <small *ngIf="form.controls['email'].hasError('required') && form.controls['email'].touched" class="text-danger support-text">E-mail é obrigatório.</small>
+                            <small *ngIf="form.controls['email'].errors?.email && form.controls['email'].touched" class="text-danger support-text">Digite um e-mail válido</small>
+                        </div>
+                        <button mat-raised-button color="primary" type="submit" class="btn-block btn-lg m-t-20" [disabled]="!form.valid" (click)="send()">Enviar</button>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
