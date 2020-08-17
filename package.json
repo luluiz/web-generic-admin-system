@@ -16,7 +16,7 @@
     "url": "https://github.com/luluiz/web-generic-admin-system.git"
   },
   "dependencies": {
-    "@angular-devkit/core": "8.1.0",
+    "@angular-devkit/core": "10.0.6",
     "@angular/animations": "^10.0.10",
     "@angular/cdk": "^10.1.3",
     "@angular/common": "^10.0.10",
@@ -57,8 +57,8 @@
     "zone.js": "^0.10.3"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.801.0",
-    "@angular/cli": "^8.1.0",
+    "@angular-devkit/build-angular": "^0.1000.6",
+    "@angular/cli": "^10.0.6",
     "@angular/compiler-cli": "^10.0.10",
     "@angular/language-service": "^10.0.10",
     "@types/jasmine": "~3.3.13",
