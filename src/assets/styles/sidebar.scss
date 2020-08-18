@@ -16,8 +16,8 @@ Main sidebar
 }
 #snav {
   box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
-  .mat-drawer-inner-container {
-    overflow: visible;
+  .mat-drawer-inner-container{
+    overflow:visible;
     height: auto;
   }
   .mat-nav-list .mat-list-item {
@@ -136,7 +136,7 @@ use profile section
       -webkit-animation: 2.5s blow 0s linear infinite;
       animation: 2.5s blow 0s linear infinite;
       position: absolute;
-      content: "";
+      content: '';
       width: 50px;
       height: 50px;
       top: 31px;
@@ -223,8 +223,10 @@ use profile section
       margin-left: $mini-sidebar-width;
     }
     &.mat-sidenav {
-      -webkit-transition: width 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-      transition: width 0.2s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+      -webkit-transition: width 0.2s cubic-bezier(0.25, 0.8, 0.25, 1),
+        transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
+      transition: width 0.2s cubic-bezier(0.25, 0.8, 0.25, 1),
+        transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     }
     &.mat-sidenav:not(:hover) {
       width: $mini-sidebar-width;
@@ -269,7 +271,7 @@ use profile section
       }
     }
   }
-  [dir="rtl"] {
+  [dir='rtl'] {
     app-sidebar {
       display: block;
       overflow: hidden;

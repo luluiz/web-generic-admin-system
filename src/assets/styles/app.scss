@@ -289,6 +289,14 @@ html body {
 .p-b-40 {
     padding-bottom: 40px;
 }
+
+.p-l-30 {
+	padding-left: 30px;
+}
+
+.p-r-30 {
+	padding-right: 30px;
+}
 }
 
 /*******************
@@ -809,23 +817,6 @@ Notify
     position: relative;
     top: -20px;
     right:0px;
-    .heartbit {
-        position: absolute;
-        top: -20px;
-        right: -4px;
-        height: 25px;
-        width: 25px;
-        
-        border: 5px solid $danger;
-        border-radius: 70px;
-        -moz-animation: heartbit 1s ease-out;
-        -moz-animation-iteration-count: infinite;
-        -o-animation: heartbit 1s ease-out;
-        -o-animation-iteration-count: infinite;
-        -webkit-animation: heartbit 1s ease-out;
-        -webkit-animation-iteration-count: infinite;
-        animation-iteration-count: infinite;
-    }
     .point {
         width: 6px;
         height: 6px;
@@ -835,55 +826,10 @@ Notify
         background-color: $danger;
         position: absolute;
         right: 6px;
-        top: -10px;
+        top: -12px;
     }
 }
 
-@-moz-keyframes heartbit {
-    0% {
-        -moz-transform: scale(0);
-        opacity: 0.0;
-    }
-    25% {
-        -moz-transform: scale(0.1);
-        opacity: 0.1;
-    }
-    50% {
-        -moz-transform: scale(0.5);
-        opacity: 0.3;
-    }
-    75% {
-        -moz-transform: scale(0.8);
-        opacity: 0.5;
-    }
-    100% {
-        -moz-transform: scale(1);
-        opacity: 0.0;
-    }
-}
-
-@-webkit-keyframes heartbit {
-    0% {
-        -webkit-transform: scale(0);
-        opacity: 0.0;
-    }
-    25% {
-        -webkit-transform: scale(0.1);
-        opacity: 0.1;
-    }
-    50% {
-        -webkit-transform: scale(0.5);
-        opacity: 0.3;
-    }
-    75% {
-        -webkit-transform: scale(0.8);
-        opacity: 0.5;
-    }
-    100% {
-        -webkit-transform: scale(1);
-        opacity: 0.0;
-    }
-}
 .btn-block{
     display: block;
     width: 100%;
@@ -1017,4 +963,65 @@ list inline
 .button-row button{
     margin-right:2px;
     margin-left:2px;
+}
+
+.mini-spacer {
+	margin-top: 90px;
+}
+
+/*******************
+List-style-none
+******************/
+
+ul.list-style-none {
+    margin: 0px;
+    padding: 0px;
+    li {
+        list-style: none;
+        a {
+            color: $themecolor;
+            padding: 8px 0px;
+            display: block;
+            text-decoration: none;
+            &:hover {
+                color: $themecolor;
+            }
+        }
+    }
+}
+
+.align-self-center {
+    align-self: center;
+}
+
+.float-right {
+	float: right;
+}
+
+.page-breadcrumb {
+    .breadcrumb {
+        padding: 0px;
+        margin: 0px;
+        background: transparent;
+		.breadcrumb-item {
+			font-size: 14px;
+		}
+		.breadcrumb-item a {
+			padding-right: .5rem;
+		}
+        .breadcrumb-item+.breadcrumb-item::before {
+            content: "\e649";
+            font-family: themify;
+            color: $sidebar-icons;
+            font-size: 11px;
+			padding-right: .5rem;
+        }
+		.breadcrumb-item+.breadcrumb-item.active {
+			color: $sidebar-icons;
+		}
+    }
+}
+
+.page-breadcrumb .breadcrumb .breadcrumb-item a{
+    display:initial;
 }

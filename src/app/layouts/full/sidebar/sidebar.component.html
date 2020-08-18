@@ -1,74 +1,87 @@
 <!-- ============================================================== -->
 <!-- sidebar -->
 <!-- ============================================================== -->
-<div class="user-profile">
-    <div class="profile-text" style="padding-top: 0px; font-size: 14px">
-        <a class="profile-item" *ngIf="_usuario.is_fornecedor || _usuario.is_oficina">
-            <mat-icon class="icon-item">apartment</mat-icon><span fxFlex>{{_empresa?.nome_fantasia}}</span>
-        </a>
-        <a class="profile-item">
-            <mat-icon class="icon-item">account_circle</mat-icon><span fxFlex>&nbsp;{{_usuario?.nome}}</span>
-        </a>
-        <a class="profile-item">
-            <mat-icon class="icon-item">email</mat-icon><span fxFlex>{{_usuario?.email}}</span>
+<div class="user-profile" style="background: url(assets/images/background/user-info.jpg) no-repeat;">
+    <!-- User profile image -->
+    <div class="profile-img">
+        <img src="assets/images/users/profile.png" alt="user"> </div>
+    <!-- User profile text-->
+    <!-- ============================================================== -->
+    <!-- Profile - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="profile-text">
+        <a [matMenuTriggerFor]="sdprofile" class=""> Markarn Doe
+            <i class="ti-angle-down font-12 m-l-5"></i>
         </a>
     </div>
-    <!-- <pre>{{_usuario | json }}</pre> -->
-    <!-- <pre>{{_empresa | json }}</pre> -->
+    <mat-menu #sdprofile="matMenu" class="mymegamenu">
+        <button mat-menu-item>
+            <mat-icon>settings</mat-icon> Settings
+        </button>
+        <button mat-menu-item>
+            <mat-icon>account_box</mat-icon> Profile
+        </button>
+        <button mat-menu-item>
+            <mat-icon>notifications_off</mat-icon> Disable notifications
+        </button>
+        <button mat-menu-item>
+            <mat-icon>exit_to_app</mat-icon> Sign Out
+        </button>
+    </mat-menu>
 </div>
 
 <mat-nav-list appAccordion>
-    <mat-list-item appAccordionLink *ngFor="let item of menu; let i = index;" routerLinkActive="selected" group="{{item.state}}">
-        <a class="" appAccordionToggle (click)="irPara(item.acao, item.state)" *ngIf="item.type === 'link'">
-            <mat-icon>{{ item.icon }}</mat-icon>
-            <span>{{ item.name }}</span>
+    <mat-list-item appAccordionLink *ngFor="let menuitem of menuItems.getMenuitem()" routerLinkActive="selected" group="{{menuitem.state}}" (click)="scrollToTop()">
+        <a class="" appAccordionToggle [routerLink]="['/', menuitem.state]" *ngIf="menuitem.type === 'link'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
             <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
 
-        <a class="" appAccordionToggle href="{{item.state}}" *ngIf="item.type === 'extLink'">
-            <mat-icon>{{ item.icon }}</mat-icon>
-            <span>{{ item.name }}</span>
+        <a class="" appAccordionToggle href="{{menuitem.state}}" *ngIf="menuitem.type === 'extLink'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
             <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
-        <a class="" appAccordionToggle href="{{item.state}}" target="_blank" *ngIf="item.type === 'extTabLink'">
-            <mat-icon>{{ item.icon }}</mat-icon>
-            <span>{{ item.name}}</span>
+        <a class="" appAccordionToggle href="{{menuitem.state}}" target="_blank" *ngIf="menuitem.type === 'extTabLink'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name}}</span>
             <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
         </a>
 
-        <a class="item" appAccordionToggle href="javascript:;" *ngIf="item.type === 'sub'">
-            <mat-icon>{{ item.icon }}</mat-icon>
-            <span>{{ item.name }} </span>
+        <a class="" appAccordionToggle href="javascript:;" *ngIf="menuitem.type === 'sub'">
+            <mat-icon>{{ menuitem.icon }}</mat-icon>
+            <span>{{ menuitem.name }}</span>
             <span fxFlex></span>
-            <span class="label label-{{ badge.type }}" *ngFor="let badge of item.badge">{{ badge.value }}</span>
+            <span class="label label-{{ badge.type }}" *ngFor="let badge of menuitem.badge">{{ badge.value }}</span>
             <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
         </a>
-        <mat-nav-list class="sub-item" *ngIf="item.type === 'sub'">
-            <mat-list-item *ngFor="let childitem of item.children; let j = index;" routerLinkActive="selectedsubitem">
-                <!--  [routerLink]="['/', item.state, childitem.state ]" -->
-                <a *ngIf="childitem.type === 'link'" class="relative subitem" outerLinkActive="selectedsubitem"
-                    (click)="itemSelect[i]=j ; irPara(item.acao, item.state, childitem.state)">{{ childitem.name}}</a>
+        <mat-nav-list class="sub-item" *ngIf="menuitem.type === 'sub'" >
+            <mat-list-item *ngFor="let childitem of menuitem.children; let j=index; let i = childitem" routerLinkActive="selected">
+                <a [routerLink]="['/', menuitem.state, childitem.state ]"  *ngIf="childitem.type === 'link'" class="relative"
+                    routerLinkActive="selected" (click)="itemSelect[i]=j">{{ childitem.name}}</a>
             </mat-list-item>
-            <mat-list-item *ngFor="let childitem of item.children; let j = index">
-                <a class="" href="javascript: void(0);" *ngIf="childitem.type === 'subchild'" (click)="itemSelect[i]=j" [ngClass]="j==itemSelect[i]? 'selected' : ''">
+            <mat-list-item *ngFor="let childitem of menuitem.children; let j=index; let i=childitem">
+                <a class="" href="javascript: void(0);" *ngIf="childitem.type === 'subchild'" (click)="itemSelect[i]=j"
+                    [ngClass]="j==itemSelect[i]? 'selected' : ''">
                     <span>{{ childitem.name }}</span>
                     <span fxFlex></span>
                     <mat-icon class="dd-icon">keyboard_arrow_down</mat-icon>
                 </a>
-                <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'">
+                <mat-nav-list class="child-sub-item" *ngIf="childitem.type === 'subchild'" >
                     <mat-list-item *ngFor="let child of childitem.subchildren" routerLinkActive="selected">
-                        <a [routerLink]="['/', item.state, childitem.state, child.state ]" routerLinkActive="selected">{{child.name}}</a>
+                        <a [routerLink]="['/', menuitem.state, childitem.state, child.state ]" routerLinkActive="selected" >{{child.name}}</a>
                     </mat-list-item>
                 </mat-nav-list>
             </mat-list-item>
 
         </mat-nav-list>
 
-        <div class="saperator text-muted" *ngIf="item.type === 'saperator'">
-            <span>{{ item.name }}</span>
+        <div class="saperator text-muted" *ngIf="menuitem.type === 'saperator'">
+            <span>{{ menuitem.name }}</span>
         </div>
     </mat-list-item>
 </mat-nav-list>

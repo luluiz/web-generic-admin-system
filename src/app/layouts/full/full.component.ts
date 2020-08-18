@@ -1,64 +1,65 @@
+
 import { MediaMatcher } from '@angular/cdk/layout';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatSidenav } from '@angular/material/sidenav';
-import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
-import { Subscription } from 'rxjs';
-import { AuthenticationService } from "../../authentication/authentication.service";
+import { Router } from '@angular/router';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnDestroy
+
+
+} from '@angular/core';
 import { MenuItems } from '../../shared/menu-items/menu-items';
-import { UtilsService } from '../../shared/services/utils.service';
+
+
+import { PerfectScrollbarConfigInterface, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 /** @title Responsive sidenav */
 @Component({
-    selector: 'app-full-layout',
-    templateUrl: 'full.component.html',
-    styleUrls: ['full.component.css']
+  selector: 'app-full-layout',
+  templateUrl: 'full.component.html',
+  styleUrls: []
 })
-export class FullComponent implements OnDestroy, OnInit {
-    @ViewChild('snav', { static: true }) public sidebarNav: MatSidenav;
-    @ViewChild('end', { static: true }) public cfgNav: MatSidenav;
-    public mobileQuery: MediaQueryList;
-    public minisidebar: boolean;
-    public sidebarOpened;
-    public form: FormGroup;
-    public config: PerfectScrollbarConfigInterface = {};
-    private _mobileQueryListener: () => void;
-    public usuario_autorizado: boolean;
-    public usuario_logado: any = this.authService.getUsuarioLogado();
-    public is_desktop: boolean = this.utils.isDesktop();
-    public mostrarAlertaPagamento: boolean = false;
-    private checarPagamentoSub: Subscription;
+export class FullComponent implements OnDestroy {
+  mobileQuery: MediaQueryList;
+  dir = 'ltr';
+  green = false;
+  blue = false;
+  dark = false;
+  minisidebar = false;
+  boxed = false;
+  danger = false;
+  showHide = false;
+  url = '';
+  sidebarOpened = false;
+  status = false;
 
-    constructor(
-        private changeDetectorRef: ChangeDetectorRef,
-        private media: MediaMatcher,
-        public menuItems: MenuItems,
-        private authService: AuthenticationService,
-        private utils: UtilsService,
-    ) {
-        this.mobileQuery = this.media.matchMedia('(min-width: 768px)');
-        this._mobileQueryListener = () => this.changeDetectorRef.detectChanges();
-        this.mobileQuery.addListener(this._mobileQueryListener);
-    }
+  public showSearch = false;
 
-    ngOnInit() {
-        this.iniciarForms();
-    }
+  public config: PerfectScrollbarConfigInterface = {};
+  private _mobileQueryListener: () => void;
 
-    ngOnDestroy(): void {
-        this.mobileQuery.removeListener(this._mobileQueryListener);
-        this.checarPagamentoSub.unsubscribe();
-    }
+  clickEvent() {
+    this.status = !this.status;
+  }
 
-    iniciarForms() {
-    }
 
-    logout() {
-        this.authService.logout();
-    }
+  constructor(
+    public router: Router,
+    changeDetectorRef: ChangeDetectorRef,
+    media: MediaMatcher,
+    public menuItems: MenuItems
+  ) {
+    this.mobileQuery = media.matchMedia('(min-width: 768px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    // tslint:disable-next-line: deprecation
+    this.mobileQuery.addListener(this._mobileQueryListener);
+  }
 
-    responseSidebar(evt: any) {
-        if (!this.is_desktop && evt && evt.toggleSidebar)
-            this.sidebarNav.toggle();
-    }
+  ngOnDestroy(): void {
+    // tslint:disable-next-line: deprecation
+    this.mobileQuery.removeListener(this._mobileQueryListener);
+  }
+
+
+  // Mini sidebar
 }

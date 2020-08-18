@@ -1,54 +1,27 @@
-# Instruções HUBBI DEV #
+# Project
 
-Abaixo contém as tecnologias utilizadas no desenvolvimento da plataforma do Hubbi e o passo a passo para criar o ambiente de desenvolvimento.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0-next.1.
 
-Darei permissões para vocês fazerem uso do repositório no Bitbucket e o convite do Trello para gestão de tarefas. No início do desenvolvimento desse MVP foi usado o MeisterTask, porém foi visto que o uso do Trello é melhor.
+## Development server
 
-Houve um ponto do sistema que esqueci de comentar, sobre os usuários do sistema. Para cada frente (admin, oficina e fornecedor) existem apenas 2 níveis de acesso: ADMIN e USUARIO.
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Tecnologias utilizadas: ##
-Abaixo estão listadas as ferramentas usadas para auxiliar e realizar o desenvolvimento do sistema.
+## Code scaffolding
 
-*  NVM: Node Version Manager, ferramenta para gerenciamento de versões NodeJS.
-*  NodeJS 12.9.1
-*  Express 4.17.1
-*  MongoDB 4.0.9
-*  Angular 8.1.0
-*  PM2: gerenciamento de processos node. Utilizado em produção.
-*  Robo 3T: ferramenta GUI para manipular o banco Mongo.
-*  Studio 3T: ferramenta completa de gestão do Mongo, seria um SGBD.
- 
-## Passo a passo para criar o ambiente de desenvolvimento: ##
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-1.	Instalar NVM
-2.	Instalar Node pelo NVM
-3.	Instalar PM2: npm -g (globalmente)
-4.	Instalar MongoDB
-5.	Instalar Robo 3T
-6.	Instalar Studio 3T
-7.	Instalar Angular: npm -g (globalmente)
-8.	Instalar dependências do front: npm install
-9.	Rodar o front: npm run start (mais info: package.js > scripts)
-10.	Instalar dependências do back: npm install
-11.	Rodar o back: npm run api (mais info: package.js > scripts)
- 
-Erro provável: bcrypt que pode reclamar de permissões do usuário, dependências instaladas e versão do Node.
+## Build
 
-**npm install bcrypt --unsafe-perm   (força a instalação do bcrypt)**
- 
-Instalar Puppetier
-sudo apt-get install --no-install-recommends gconf-service libasound2 libatk1.0-0 libatk-bridge2.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
- 
-## Repositório: Git - BitBucket ##
-git clone https://luizbezerra@bitbucket.org/construtordigital/hubbi_app.git
- 
-## Template: Material Pro ##
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-* Versão Angular:
-https://wrappixel.com/demos/angular-admin-templates/material-angular/material/dashboards/dashboard1
+## Running unit tests
 
-* Versão Bootstrap:
-https://wrappixel.com/demos/admin-templates/material-pro/material
- 
-## Biblioteca de Componentes: Angular Material (Material Design) ##
-https://material.angular.io
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

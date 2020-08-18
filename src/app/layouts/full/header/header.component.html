@@ -1,7 +1,7 @@
 <!-- ============================================================== -->
 <!-- Notification - style you can find in header.scss -->
 <!-- ============================================================== -->
-<!-- <button [matMenuTriggerFor]="notification" mat-icon-button class="m-r-10">
+<button [matMenuTriggerFor]="notification" mat-icon-button class="m-r-10">
     <mat-icon>message</mat-icon>
     <div class="notify">
         <span class="heartbit"></span>
@@ -17,6 +17,7 @@
             <li>
                 <div class="message-center">
                     <perfect-scrollbar [config]="config">
+                        <!-- Message -->
                         <a href="#" *ngFor="let notification of notifications">
                             <div class="round {{notification.round}}">
                                 <i class="{{notification.icon}}"></i>
@@ -34,11 +35,11 @@
 
         </ul>
     </div>
-</mat-menu> -->
+</mat-menu>
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
-<!-- <button [matMenuTriggerFor]="message" mat-icon-button class="m-r-10">
+<button [matMenuTriggerFor]="message" mat-icon-button class="m-r-10">
     <mat-icon>email</mat-icon>
     <div class="notify">
         <span class="heartbit"></span>
@@ -54,6 +55,7 @@
             <li>
                 <div class="message-center">
                     <perfect-scrollbar [config]="config">
+                        <!-- Message -->
                         <a href="#" *ngFor="let mymessage of mymessages">
                             <div class="user-img">
                                 <img src="{{mymessage.useravatar}}" alt="user" class="img-circle" width="40">
@@ -65,29 +67,25 @@
                                 <span class="time">{{mymessage.time}}</span>
                             </div>
                         </a>
+                        <!-- Message -->
                     </perfect-scrollbar>
                 </div>
             </li>
         </ul>
     </div>
-</mat-menu> -->
-
+</mat-menu>
 <!-- ============================================================== -->
 <!-- Profile - style you can find in header.scss -->
 <!-- ============================================================== -->
-<!-- <button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
+<button [matMenuTriggerFor]="profile" mat-icon-button class="m-r-5">
     <img src="assets/images/users/1.jpg" alt="user" class="profile-pic"> </button>
 <mat-menu #profile="matMenu" class="mymegamenu">
     <button mat-menu-item>
-        <mat-icon>settings</mat-icon> Configurações
-    </button>
+        <mat-icon>settings</mat-icon> Settings </button>
     <button mat-menu-item>
-        <mat-icon>account_box</mat-icon> Perfil
-    </button>
+        <mat-icon>account_box</mat-icon> Profile </button>
     <button mat-menu-item>
-        <mat-icon>notifications_off</mat-icon> Desabilitar Notificações
-    </button>
-    <button mat-menu-item (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon> Sair
-    </button>
-</mat-menu> -->
+        <mat-icon>notifications_off</mat-icon> Disable notifications </button>
+    <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon> Sign Out </button>
+</mat-menu>

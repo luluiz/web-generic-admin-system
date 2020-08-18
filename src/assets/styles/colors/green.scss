@@ -5,67 +5,27 @@ Email: niravjoshi87@gmail.com
 File: scss
 */
 
-$verde1-hubbi: #20b14a;
-$verde2-hubbi: #15723b;
-$verde3-hubbi: #152b1a;
-// Material Design Pallete Generator http://mcg.mbitson.com/
-$mat-verde-hubbi: (
-  50: #e4f6e9,
-  100: #bce8c9,
-  200: #90d8a5,
-  300: #63c880,
-  400: #41bd65,
-  500: #20b14a,
-  600: #1caa43,
-  700: #15723b,
-  800: #139832,
-  900: #152b1a,
-  A100: #b8ffc2,
-  A200: #85ff96,
-  A400: #52ff6b,
-  A700: #38ff55,
-  contrast: (
-    50: #000000,
-    100: #000000,
-    200: #000000,
-    300: #000000,
-    400: #000000,
-    500: #ffffff,
-    600: #ffffff,
-    700: #ffffff,
-    800: #ffffff,
-    900: #ffffff,
-    A100: #000000,
-    A200: #000000,
-    A400: #000000,
-    A700: #000000
-  )
-);
 
-$green-app-primary: mat-palette($mat-verde-hubbi);
-$green-app-accent: mat-palette($mat-verde-hubbi, 500, 300, 700);
-$green-app-warn: mat-palette($mat-red);
+$green-app-primary: mat-palette($mat-teal);
+$green-app-accent: mat-palette($mat-indigo, A200, A100, A400);
+$green-app-warn: mat-palette($mat-pink);
 // Create the theme object (a Sass map containing all of the palettes).
 $green-app-theme: mat-light-theme($green-app-primary, $green-app-accent, $green-app-warn);
-$themecolor: $verde1-hubbi;
-$themecolor-alt: $verde2-hubbi;
-$white: #fff;
+$themecolor:#009688;
+$themecolor-alt: #009688;
+$white:#fff;
 #snav {
-  .mat-nav-list .mat-list-item {
-    .mat-list-item-content {
-      &:hover {
-        > a {
-          color: $themecolor;
+    .mat-nav-list .mat-list-item { 
+        .mat-list-item-content {
+            &:hover {
+                > a {
+                    color: $themecolor;
+                }
+            }
         }
-      }
+        &.selected > .mat-list-item-content > a {
+            background: $themecolor-alt;
+            color: $white;
+        }
     }
-    &.selected > .mat-list-item-content > a {
-      background: $themecolor-alt;
-      color: $white;
-    }
-    &.selectedsubitem > .mat-list-item-content > a {
-      background: transparent;
-      color: $themecolor-alt;
-    }
-  }
 }

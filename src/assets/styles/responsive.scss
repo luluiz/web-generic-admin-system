@@ -95,7 +95,7 @@ File: scss
 
     .mat-row { 
       flex-direction: column;
-      align-items: start;
+      align-items: flex-start;
       padding: 8px 15px;
       &:after{
         min-height: unset;
@@ -129,24 +129,13 @@ File: scss
             margin: 40px 0 !important;
         }
     }
+	.float-sm-left {
+		float: left;
+	}
 }
 
 @media print {
   html .page-wrapper{
     height: 100%;
   }
-}
-
-
-@media(max-width: 800px) {
-    mat-table {
-        min-width: 1000px;
-    }
-    mat-header-cell, mat-cell {
-        text-align: center !important;
-        justify-content: center !important;
-    }
-    .mat-paginator-range-label {
-        margin: 0px !important;
-    }
 }

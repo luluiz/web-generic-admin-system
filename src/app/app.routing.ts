@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from "./guards/auth.guard";
-import { AppBlankComponent } from './layouts/blank/blank.component';
+
 import { FullComponent } from './layouts/full/full.component';
 
 export const AppRoutes: Routes = [
@@ -10,31 +9,17 @@ export const AppRoutes: Routes = [
         children: [
             {
                 path: '',
-                redirectTo: '/dashboards/dashboard-oficina',
-                pathMatch: 'full',
+                redirectTo: '/starter',
+                pathMatch: 'full'
             },
             {
-                path: 'dashboards',
-                loadChildren: './dashboards/dashboards.module#DashboardsModule',
-                canActivate: [AuthGuard],
-                canLoad: [AuthGuard],
-                canActivateChild: [AuthGuard]
+                path: 'material',
+                loadChildren: () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
             },
-        ]
-    },
-    {
-        path: '',
-        component: AppBlankComponent,
-        children: [
             {
-                path: 'auth',
-                loadChildren:
-                    './authentication/authentication.module#AuthenticationModule'
-            },
+                path: 'starter',
+                loadChildren: () => import('./starter/starter.module').then(m => m.StarterModule)
+            }
         ]
-    },
-    {
-        path: '**',
-        redirectTo: 'auth/404'
     }
 ];

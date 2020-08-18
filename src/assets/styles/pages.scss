@@ -98,8 +98,11 @@ html .page-wrapper {
  Mail page
 *******************/
 .icon-box {
-  width: 20%;
-  display: inline-block;
+    width: 20%;
+    display: inline-block;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 /*******************
  Mail page
