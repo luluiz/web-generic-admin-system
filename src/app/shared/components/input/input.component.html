@@ -1,0 +1,25 @@
+<mat-form-field class="form-group">
+    <mat-icon *ngIf="prefix" matPrefix>{{icon_prefix}}</mat-icon>
+    <input matInput class="form-control"
+        [value]="innerValue"
+        [readonly]="readonly" 
+        [disabled]="disabled" 
+        (change)="onChange($event.target.value)"
+        (blur)="onBlur()"
+        (keydown.enter)="onBlur()"
+        (keyup)="onChange($event.target.value)"
+        [placeholder]="placeholder" 
+        [type]="type" 
+        [step]="step ? step : 1" 
+        [max]="max ? max : null" 
+        [min]="min ? min : null" 
+        [required]="required">
+    <span *ngIf="suffix" matSuffix>{{char_suffix}}</span>
+    <button *ngIf="show_password" matSuffix  mat-icon-button (click)="setType()">
+        <mat-icon *ngIf="type == 'password'">visibility</mat-icon>
+        <mat-icon *ngIf="type == 'text'">visibility_off</mat-icon>
+    </button>
+    <mat-hint *ngIf="shouldShowErrors()" class="text-danger"> 
+        <span *ngFor="let error of listOfErrors() | slice:0:1">{{error}}</span>
+    </mat-hint>
+</mat-form-field>
