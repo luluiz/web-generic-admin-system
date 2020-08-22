@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { IHttpResponse } from '../../shared/models/http-response.model';
 import { AuthenticationService } from '../../shared/services/authentication.service';
+import { SwalService } from '../../shared/services/swal.service';
 import { ToastService } from '../../shared/services/toast.service';
 
 
@@ -20,7 +21,7 @@ export class RegisterComponent implements OnInit {
         private fb: FormBuilder,
         private authService: AuthenticationService,
         private toast: ToastService,
-        // private swal: SwalService,
+        private swal: SwalService,
     ) { }
 
     ngOnInit() {
@@ -71,7 +72,7 @@ export class RegisterComponent implements OnInit {
             .subscribe((response: IHttpResponse) => {
                 console.log('register', response);
                 if (response.success) {
-                    this.toast.show('success', response.message);
+                    this.swal.showOk('success', undefined, response.message);
                     this.form.reset();
                 } else {
                     this.toast.show('error', response.message);

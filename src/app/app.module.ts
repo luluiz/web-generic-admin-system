@@ -18,6 +18,7 @@ import { AppHeaderComponent } from './layouts/full/header/header.component';
 import { AppSidebarComponent } from './layouts/full/sidebar/sidebar.component';
 import { MaterialModule } from './material-module';
 import { AuthenticationService } from './shared/services/authentication.service';
+import { SwalService } from './shared/services/swal.service';
 import { ToastService } from './shared/services/toast.service';
 import { UtilsService } from './shared/services/utils.service';
 import { SharedModule } from './shared/shared.module';
@@ -66,7 +67,8 @@ export function tokenGetter() {
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         AuthenticationService,
         UtilsService,
-        ToastService
+        ToastService,
+        SwalService
     ],
     bootstrap: [AppComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
