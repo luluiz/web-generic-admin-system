@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { IHttpResponse } from '../../shared/models/http-response.model';
+import { AuthenticationService } from '../../shared/services/authentication.service';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
     selector: 'app-login',
@@ -14,8 +18,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private fb: FormBuilder,
         private router: Router,
-        // private toast: ToastService,
-        // private swal: SwalService
+        private toast: ToastService,
+        private authService: AuthenticationService
     ) { }
 
     ngOnInit() {
@@ -34,6 +38,18 @@ export class LoginComponent implements OnInit {
     }
 
     onSubmit() {
-
+        this.loading = true;
+        this.authService
+            .login(this.form.value)
+            .pipe(take(1))
+            .subscribe((response: IHttpResponse) => {
+                if (response.success) {
+                    this.authService.setToken(response.data.token);
+                    this.router.navigate(['welcome']);
+                    this.toast.show('success', response.message);
+                } else {
+                    this.toast.show('error', response.message);
+                }
+            }, null, () => this.loading = false);
     }
 }

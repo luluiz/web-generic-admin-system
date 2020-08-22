@@ -4,9 +4,10 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, Observable, Subscription, timer } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { SwalService } from './swal.service';
 import { UtilsService } from './utils.service';
 
-interface TokenDecoded {
+interface DecodedToken {
     user_id: string,
     user_type: string,
     account_id: string,
@@ -35,6 +36,8 @@ export class AuthenticationService {
 
     public user = new BehaviorSubject<any>({});
     public _user = this.user.asObservable();
+    public account = new BehaviorSubject<any>({});
+    public _account = this.account.asObservable();
 
     private _iat = new BehaviorSubject<number>(0);
     private _exp = new BehaviorSubject<number>(0);
@@ -49,70 +52,96 @@ export class AuthenticationService {
         private http: HttpClient,
         private jwtService: JwtHelperService,
         private utils: UtilsService,
-        private router: Router
+        private router: Router,
+        private swal: SwalService
     ) {
-        // this.refreshExpireSession();
+        this.refreshExpireSession();
     }
 
-    login(data: ILogin): Observable<any> {
+    public login(data: ILogin): Observable<any> {
         return this.http.post(`${this.API}login`, data);
     }
 
-    register(data: IRegister): Observable<any> {
+    public register(data: IRegister): Observable<any> {
         return this.http.post(`${this.API}register`, data);
     }
 
-    logout() {
+    public logout() {
         this.resetToken();
         window.sessionStorage.clear();
         this.router.navigate(['/auth/login']);
     }
 
-    setUser(user: any) {
+    public setUser(user: any) {
         this.user.next(user);
     }
 
-    setIat(iat: number) {
+    public setAccount(account: any) {
+        this.account.next(account);
+    }
+
+    public setIat(iat: number) {
         this._iat.next(iat);
     }
 
-    setExp(exp: number) {
+    public setExp(exp: number) {
         this._exp.next(exp);
     }
 
-    getExpIat(): { iat?: number, exp?: number } | null {
-        const token_decoded = this.getDecodedToken();
+    public isUserAdmin(): boolean {
+        let token = <DecodedToken>this.getDecodedToken();
+        return token.user_type == 'ADMIN';
+    }
+
+    public isUserTypeA(): boolean {
+        let token = <DecodedToken>this.getDecodedToken();
+        return token.user_type == 'TYPE_A';
+    }
+
+    public isUserTypeB(): boolean {
+        let token = <DecodedToken>this.getDecodedToken();
+        return token.user_type == 'TYPE_B';
+    }
+
+    public getExpIat(): { iat?: number, exp?: number } | null {
+        const decoded_token = this.getDecodedToken();
         try {
-            const iat: number | undefined = token_decoded ? token_decoded?.iat : 0;
-            const exp: number | undefined = token_decoded ? token_decoded?.exp : 0;
+            const iat: number | undefined = decoded_token ? decoded_token?.iat : 0;
+            const exp: number | undefined = decoded_token ? decoded_token?.exp : 0;
             return { iat: iat, exp: exp };
         } catch (e) {
             return null;
         }
     }
 
-    getLoggedUser(): any {
-        const token_decoded = this.getDecodedToken();
-        return token_decoded ? token_decoded.user_id : null
+    public getLoggedIdUser(): string | null {
+        const decoded_token = <DecodedToken>this.getDecodedToken();
+        return decoded_token?.user_id;
     }
 
-    setToken(token: string) {
+    public getLoggedUserIdAccount(): string | null {
+        const decoded_token = <DecodedToken>this.getDecodedToken();
+        return decoded_token?.account_id;
+    }
+
+    public setToken(token: string) {
         if (!token)
             window.sessionStorage.removeItem('token');
         else {
             window.sessionStorage.setItem('token', token);
 
-            let user = this.getLoggedUser();
-            this.setUser(user);
+            this.setUser(this.getLoggedIdUser());
+            this.setAccount(this.getLoggedUserIdAccount);
             this.refreshExpireSession();
         }
     }
 
-    resetToken(): void {
+    public resetToken(): void {
         if (this.getToken()) window.sessionStorage.removeItem('token');
     }
 
-    refreshExpireSession() {
+    private refreshExpireSession() {
+        console.log('refreshExpireSession')
         const exp_iat = this.getExpIat();
         if (exp_iat) {
             this.setExp(<number>exp_iat.exp);
@@ -121,7 +150,7 @@ export class AuthenticationService {
         }
     }
 
-    getToken(): string | null {
+    public getToken(): string | null {
         try {
             return window.sessionStorage.getItem('token');
         } catch (e) {
@@ -129,12 +158,12 @@ export class AuthenticationService {
         }
     }
 
-    getDecodedToken(): TokenDecoded | void {
+    public getDecodedToken(): DecodedToken | void {
         let token!: string | null;
         try {
             token = this.getToken();
             if (!token) throw new Error('Authentication failure: Token not found.');
-            return <TokenDecoded>this.jwtService.decodeToken(<string>token);
+            return <DecodedToken>this.jwtService.decodeToken(<string>token);
         } catch (e) {
             if (token) console.warn('Authentication failure: Token not found.');
             else console.error('The token could not be decoded:', e);
@@ -146,7 +175,7 @@ export class AuthenticationService {
      * 2: Not Authenticated - Expired token.
      * 3: Authenticated with a token valid.
      */
-    verifyAuthentication(): number {
+    public verifyAuthentication(): number {
         const token = this.getToken();
 
         if (token && !this.jwtService.isTokenExpired(token))
@@ -156,7 +185,7 @@ export class AuthenticationService {
         else return 1;
     }
 
-    verifyAccessWithLockscreen(): boolean {
+    public verifyAccessWithLockscreen(): boolean {
         if (this.verifyAuthentication() == 3) { // Autenticado com token válido
             return true;
         } else if (this.verifyAuthentication() == 2) {	// Autenticado com token expirado
@@ -168,7 +197,7 @@ export class AuthenticationService {
         } else return false;
     }
 
-    isTokenExpired(): boolean {
+    public isTokenExpired(): boolean {
         try {
             const token = this.getToken();
             return this.jwtService.isTokenExpired(<string>token);
@@ -177,7 +206,7 @@ export class AuthenticationService {
         }
     }
 
-    startCounter() {
+    private startCounter() {
         if (this._timerSubscription)
             this._timerSubscription.unsubscribe();
 
@@ -191,8 +220,8 @@ export class AuthenticationService {
                 // console.log('this._counter', this._counter)
                 this._counter--;
 
-                // if (this._counter == 30) {
-                //     this.swal.show('question', 'A sessão irá expirar em 30 segundos.', 'Deseja renovar?').then(_v => { });
+                // if (this._counter == 180) {
+                // this.swal.show('question', 'Your session will expire in 3 minutes.', 'Do you want to renew?').then(_v => { });
                 // } else
                 if (this._counter <= 0) {
                     this._timerSubscription.unsubscribe();
