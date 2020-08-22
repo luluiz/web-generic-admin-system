@@ -1,4 +1,4 @@
-<div class="main-container" [dir]="dir" [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark }">
+<div class="main-container" [ngClass]="{'minisidebar': minisidebar, 'boxed': boxed, 'danger': danger, 'blue': blue, 'green': green, 'dark': dark }">
     <mat-toolbar color="primary" class="topbar telative">
         <div class="navbar-header">
             <a class="navbar-brand" href="/">
@@ -29,31 +29,22 @@
             <div class="scroll">
                 <mat-nav-list>
 
-                    <h3 mat-subheader class="text-uppercase font-weight-bold">Settings</h3>
-                    <mat-list-item>
-                        <mat-slide-toggle color="warn" (change)="dir = (dir == 'rtl' ? 'ltr' : 'rtl')">RTL</mat-slide-toggle>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-slide-toggle color="warn" [(ngModel)]="boxed">Boxed Layout</mat-slide-toggle>
-                    </mat-list-item>
+                    <h3 mat-subheader class="text-uppercase font-weight-bold">Layout</h3>
                     <mat-list-item>
                         <mat-slide-toggle [(ngModel)]="minisidebar">Mini Sidebar</mat-slide-toggle>
                     </mat-list-item>
+                    <mat-list-item>
+                        <mat-slide-toggle color="warn" (change)="changeDarkMode($event)">Dark Mode</mat-slide-toggle>
+                    </mat-list-item>
+
                     <mat-divider></mat-divider>
+
                     <h3 mat-subheader class="text-uppercase font-weight-bold">Colors</h3>
-                    <mat-list-item>
-                        <mat-checkbox color="warn" [(ngModel)]="danger" (change)="green = blue = false" class="text-danger">Red</mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox color="warn" [(ngModel)]="green" (change)="danger = blue = false" class="text-megna">Teal
-                            Green</mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox color="warn" [(ngModel)]="blue" (change)="green = danger = false" class="text-info">Blue</mat-checkbox>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <mat-checkbox color="warn" [(ngModel)]="dark" (change)="green = blue = danger = false">Dark</mat-checkbox>
-                    </mat-list-item>
+                    <mat-radio-group class="color-radio-group" [(ngModel)]="color" (change)="changeColor($event)">
+                        <mat-radio-button class="color-radio" *ngFor="let color of colors" [value]="color" color="warn">
+                            {{color}}
+                        </mat-radio-button>
+                    </mat-radio-group>
                 </mat-nav-list>
             </div>
         </mat-sidenav>
